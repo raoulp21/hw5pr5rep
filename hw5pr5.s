@@ -95,46 +95,45 @@ main:
 	call	scanf.constprop.0
 	movl	40(%rsp), %eax
 	cmpl	$1, %eax
-	je	.L21
-	movl	44(%rsp), %edx
+	je	.L30
 	cmpl	$2, %eax
-	je	.L22
-.L10:
-	xorl	%eax, %eax
-	cmpl	$2, %edx
-	sete	%al
-	movl	%eax, 40(%rsp)
+	je	.L31
+	cmpl	$3, %eax
+	jne	.L13
+	movl	44(%rsp), %eax
+	cmpl	$1, %eax
+	je	.L6
+	cmpl	$2, %eax
+	je	.L12
 .L13:
 	leaq	.LC5(%rip), %rcx
 	call	printf
-.L20:
+.L29:
 	xorl	%eax, %eax
 	addq	$48, %rsp
 	popq	%r12
 	ret
-.L22:
-	cmpl	$1, %edx
-	je	.L11
-	cmpl	$3, %edx
-	jne	.L10
-.L12:
-	leaq	.LC3(%rip), %rcx
-	call	printf
-	jmp	.L20
-.L21:
+.L31:
 	movl	44(%rsp), %eax
-	cmpl	$2, %eax
-	je	.L12
 	cmpl	$3, %eax
-	je	.L11
+	je	.L6
 	subl	$1, %eax
-	je	.L13
-	movl	$0, 40(%rsp)
-	jmp	.L13
-.L11:
+	jne	.L13
+.L12:
 	leaq	.LC4(%rip), %rcx
 	call	printf
-	jmp	.L20
+	jmp	.L29
+.L6:
+	leaq	.LC3(%rip), %rcx
+	call	printf
+	jmp	.L29
+.L30:
+	movl	44(%rsp), %eax
+	cmpl	$2, %eax
+	je	.L6
+	cmpl	$3, %eax
+	jne	.L13
+	jmp	.L12
 	.seh_endproc
 	.ident	"GCC: (Rev6, Built by MSYS2 project) 11.2.0"
 	.def	__mingw_vfprintf;	.scl	2;	.type	32;	.endef
